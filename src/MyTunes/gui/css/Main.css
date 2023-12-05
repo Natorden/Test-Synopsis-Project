@@ -1,0 +1,101 @@
+/*
+    CSS code for the background in myTunesView.fxml
+*/
+#mainPane {
+    -fx-background-image: url(../views/images/ourTunesMain.png);
+//-fx-background-repeat: stretch;
+    -fx-background-position: center;
+}
+
+#playlistPane{-fx-background-image: url(../views/images/playlistCrud.png);
+//-fx-background-repeat: stretch;
+    -fx-background-position: center;
+}
+
+#songPane{-fx-background-image: url(../views/images/songCrud.png);
+//-fx-background-repeat: stretch;
+    -fx-background-position: center;
+}
+
+.button  {
+    -fx-background-color:
+
+            linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+            linear-gradient(#5d5f5f, #5d5f5f);
+    -fx-background-radius: 3,2,2,2;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 16px;
+}
+
+
+.text-field {
+    -fx-background-color: #373737;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 3 10 3 10;
+}
+
+.label{
+    -fx-effect: dropshadow(gaussian, #373737, 10,0,1,1);
+    -fx-font-family: "Sans-serif";
+}
+
+.list-view {
+    -fx-background-color: #373737;
+}
+
+.list-cell {
+    -fx-background-color: #373737;
+    -fx-text-fill: white;
+}
+.table-view {
+    -fx-background-color: #373737;
+}
+
+.table-cell {
+
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #373737;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+    -fx-border-color:#373737;
+    -fx-table-cell-border-color:#373737;
+}
+
+
+.table-row-cell:selected {
+    -fx-background-color: #2da0a7;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.list-view:focused .list-cell:focused {
+    -fx-background-color: #2da0a7;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+
+
+.slider .track{
+    -fx-background-color: #50f3ff;
+}
+
+#progressBarDesign{
+    -fx-accent: #50f3ff;
+    -fx-box-border: #5d5f5f;
+
+}
+
+.root{
+    -fx-base: #373737;
+
+}
+

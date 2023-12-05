@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane id="playlistPane" prefHeight="200.0" prefWidth="400.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MyTunes.gui.controllers.PlaylistCRUDWindow">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="400.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="42.0" prefWidth="400.0" />
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="42.0" prefWidth="400.0">
+               <children>
+                  <Label text="Playlist Name" textFill="#50f3ff">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="64.0" prefWidth="400.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="editPlaylistField" prefHeight="23.0" prefWidth="242.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="63.0" prefWidth="400.0" spacing="10.0">
+               <children>
+                  <Button fx:id="cancelPlaylistEdit" mnemonicParsing="false" onAction="#cancelEditOnPlaylist" text="Cancel">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="savePlaylistEdit" layoutX="172.0" layoutY="10.0" mnemonicParsing="false" onAction="#saveEditOnPlaylist" text="Save">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

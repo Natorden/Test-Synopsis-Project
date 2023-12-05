@@ -1,0 +1,93 @@
+package MyTunes.be;
+
+import MyTunes.bll.utilities.SongManager;
+
+import java.util.*;
+
+public class Playlist {
+
+    private int id=-1;
+    private String name;
+    private List<PlaylistRelation> relations=new ArrayList<>();
+
+    public Playlist(int id,String name) {
+        this.id=id;
+        this.name = name;
+    }
+    public Playlist(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId(){ return id; }
+
+    public List<Song> getSongs() {
+        List<Song> songsToBeSent=new ArrayList<>();
+        Collections.sort(relations, Comparator.comparing(PlaylistRelation::getOrderId));
+        for(PlaylistRelation relation: relations){
+            songsToBeSent.add(relation.getSong());
+        }
+        return songsToBeSent;
+    }
+
+    public List<PlaylistRelation> getRelations() {
+        return relations;
+    }
+
+    /**
+     * Can only be set once. Sets the id for the Song Object.
+     * @param wanted_id The id wanted, typically retrieved from the inserted object into the database.
+     * @return returns true if set, false if already set.
+     */
+    //Can only be set once.
+    public boolean setIdOnce(int wanted_id){
+        if(getId()==-1) return false;
+        id=wanted_id;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    /**
+     * Adds a song to the songs list.
+     * @param relation The song to add.
+     */
+    //@todo possibly rename this method to addRelation instead.?
+    public void addSong(PlaylistRelation relation){
+        if(relations.contains(relation)) return;
+        relations.add(relation);
+    }
+    /**
+     * Removes a song from the list.
+     * @param song The song to add.
+     */
+    public void removeSong(Song song){
+        for(PlaylistRelation relation:relations){
+            if(relation.getSongId()==song.getId()){
+                relations.remove(relation);
+                return;
+            }
+        }
+    }
+
+    public int getNextOrderId(){
+        return this.relations.size()+1;
+    }
+
+    public int getRelationsSize(){ return this.relations.size(); }
+
+    public String getTotalSongsTime(){
+        int time=0;
+        for(PlaylistRelation relation:this.relations){
+            Song song=relation.getSong();
+            time+=SongManager.minutesStringToSeconds(song.getTime());
+        }
+        return SongManager.secondsToMinutes(time);
+    }
+}
