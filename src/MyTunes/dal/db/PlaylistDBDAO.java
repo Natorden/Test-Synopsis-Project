@@ -1,7 +1,6 @@
 package MyTunes.dal.db;
 
 import MyTunes.be.Playlist;
-import MyTunes.be.Song;
 import MyTunes.dal.interfaces.IPlaylistDAO;
 
 import java.sql.*;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class PlaylistDBDAO implements IPlaylistDAO {
 
-    private PlaylistRelationsDBDAO playlistRelationsDBDAO = new PlaylistRelationsDBDAO();
+    private final PlaylistRelationsDBDAO playlistRelationsDBDAO = new PlaylistRelationsDBDAO();
     private DBDataSourceConnector dataSource;
 
 

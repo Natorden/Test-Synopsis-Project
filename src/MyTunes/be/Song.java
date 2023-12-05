@@ -4,15 +4,15 @@ import java.util.List;
 
 public class Song {
 
-    private String title;
-    private String filePath;
-    private int id=-1;
+    private final String title;
+    private final String filePath;
+    private int id = -1;
 
-    private String artist="";
-    private String category="";
-    private String album="";
-    private String song="";
-    private String time="";
+    private String artist = "";
+    private String category = "";
+    private String album = "";
+    private final String song = "";
+    private String time = "";
 
     //Many ways of creating a song, lol.
     public Song(int id,String title, String filePath, String time, String artist, String category, String album){
@@ -73,12 +73,12 @@ public class Song {
     /**
      * Can only be set once. Sets the id for the Song Object.
      * @param wanted_id The id wanted, typically retrieved from the inserted object into the database.
-     * @return returns true if set, false if already set.
      */
-    public boolean setIdOnce(int wanted_id){
-        if(getId()!=-1) return false;
-        id=wanted_id;
-        return true;
+    public void setIdOnce(int wanted_id){
+        if(getId() == -1) {
+            return;
+        }
+        id = wanted_id;
     }
 
     public String getTitle() {

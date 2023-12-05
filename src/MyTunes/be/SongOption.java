@@ -1,14 +1,15 @@
 package MyTunes.be;
 
 public class SongOption {
-    private String option;
+    private final String option;
     private double valueInt;
     private String valueString;
-    public SongOption(String option,double value){
+
+    public SongOption(String option, double value){
         this.option=option;
         this.valueInt=value;
     }
-    public SongOption(String option,String value){
+    public SongOption(String option, String value){
         this.option=option;
         this.valueString=value;
     }

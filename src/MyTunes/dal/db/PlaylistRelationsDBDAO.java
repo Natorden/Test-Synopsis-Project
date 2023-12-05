@@ -3,8 +3,6 @@ package MyTunes.dal.db;
 import MyTunes.be.Playlist;
 import MyTunes.be.PlaylistRelation;
 import MyTunes.be.Song;
-import MyTunes.dal.file.FileDAO;
-import MyTunes.dal.file.SongFileDAO;
 import MyTunes.dal.interfaces.IPlaylistRelationsDAO;
 
 import java.sql.*;

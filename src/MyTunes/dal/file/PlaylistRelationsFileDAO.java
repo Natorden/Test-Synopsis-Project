@@ -15,7 +15,6 @@ public class PlaylistRelationsFileDAO implements IPlaylistRelationsDAO {
     public void getPlaylistSongs(Playlist playlist){
         List<PlaylistRelation> playlistRelations=new ArrayList<>();
         List<String> listOfResults = FileDAO.readFileToList(PLAYLIST_FILE);
-        if(listOfResults==null) return;
         for (String line : listOfResults) {
             if (line == null) continue;
             String[] separatedLine = line.split(",");
@@ -46,7 +45,6 @@ public class PlaylistRelationsFileDAO implements IPlaylistRelationsDAO {
     public void removeSongFromPlaylist(Playlist playlist, Song song){
         List<String> newList=new ArrayList<>();
         List<String> listOfResults = FileDAO.readFileToList(PLAYLIST_FILE);
-        if(listOfResults==null) return;
         for (String line : listOfResults) {
             if (line == null) continue;
             String[] separatedLine = line.split(",");
@@ -61,7 +59,6 @@ public class PlaylistRelationsFileDAO implements IPlaylistRelationsDAO {
     public void savePlaylistSongs(Playlist playlist) {
         List<String> newList=new ArrayList<>();
         List<String> listOfResults = FileDAO.readFileToList(PLAYLIST_FILE);
-        if(listOfResults==null) return;
         for (String line : listOfResults) {
             if (line == null) continue;
             String[] separatedLine = line.split(",");

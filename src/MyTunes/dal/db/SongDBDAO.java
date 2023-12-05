@@ -1,7 +1,6 @@
 package MyTunes.dal.db;
 
 import MyTunes.be.Song;
-import MyTunes.be.SongOption;
 import MyTunes.dal.interfaces.ISongDAO;
 
 import java.sql.*;
@@ -54,16 +53,20 @@ public class SongDBDAO implements ISongDAO {
             String sql = "INSERT INTO Songs (song_title,song_filePath,song_time,song_artist,song_category,song_album) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            pstmt.setString(1, song.getTitle());
-            pstmt.setString(2, song.getFilePath());
-            pstmt.setString(3, song.getTime());
-            pstmt.setString(4, song.getArtist());
-            pstmt.setString(5, song.getCategory());
-            pstmt.setString(6, song.getAlbum());
+            setPreparedSongValues(song, pstmt);
             pstmt.executeUpdate();
     } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private void setPreparedSongValues(Song song, PreparedStatement pstmt) throws SQLException {
+        pstmt.setString(1, song.getTitle());
+        pstmt.setString(2, song.getFilePath());
+        pstmt.setString(3, song.getTime());
+        pstmt.setString(4, song.getArtist());
+        pstmt.setString(5, song.getCategory());
+        pstmt.setString(6, song.getAlbum());
     }
 
 
@@ -75,12 +78,7 @@ public class SongDBDAO implements ISongDAO {
             String sql = "UPDATE Songs SET song_title=?, song_filepath=?, song_time=?, song_artist=?, song_category=?, song_album=? WHERE song_id=?";
             PreparedStatement pstmt = con.prepareStatement(sql);
 
-            pstmt.setString(1, song.getTitle());
-            pstmt.setString(2, song.getFilePath());
-            pstmt.setString(3, song.getTime());
-            pstmt.setString(4, song.getArtist());
-            pstmt.setString(5, song.getCategory());
-            pstmt.setString(6, song.getAlbum());
+            setPreparedSongValues(song, pstmt);
             pstmt.setInt(7, song.getId());
             pstmt.executeUpdate();
         } catch (SQLException throwables) {

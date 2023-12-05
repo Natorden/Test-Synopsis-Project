@@ -12,7 +12,7 @@ import java.sql.Connection;
 
 public class DBDataSourceConnector {
 
-    private SQLServerDataSource dataSource;
+    private final SQLServerDataSource dataSource;
 
     public DBDataSourceConnector() {
         dataSource = new SQLServerDataSource();

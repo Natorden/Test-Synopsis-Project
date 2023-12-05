@@ -10,8 +10,8 @@ import java.util.List;
 
 public class SongModel {
 
-    private ISongManager manager;
-    private ObservableList<Song> songsToBeViewed = FXCollections.observableArrayList();
+    private final ISongManager manager;
+    private final ObservableList<Song> songsToBeViewed = FXCollections.observableArrayList();
 
 
     public ISongManager getManager() {

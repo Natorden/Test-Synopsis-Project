@@ -1,8 +1,8 @@
 package MyTunes.be;
 
 public class PlaylistRelation {
-    private Playlist playlist;
-    private Integer songId;
+    private final Playlist playlist;
+    private final Integer songId;
     private Integer orderId;
     private Song song;
 

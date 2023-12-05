@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -30,15 +31,15 @@ public class MyTunesViewController implements Initializable {
 
     //Where the playlist TableView fxid are
     @FXML private TableView<Playlist> playlist;
-    @FXML private TableColumn playlistName;
-    @FXML private TableColumn playlistNumberSongs;
-    @FXML private TableColumn playlistTime;
+    @FXML private TableColumn<Object, Object> playlistName;
+    @FXML private TableColumn<Object, Object> playlistNumberSongs;
+    @FXML private TableColumn<Object, Object> playlistTime;
     //Where the song list TableView fxid are
     @FXML private TableView<Song> allSong;
-    @FXML private TableColumn songName;
-    @FXML private TableColumn songArtist;
-    @FXML private TableColumn songGenre;
-    @FXML private TableColumn songTime;
+    @FXML private TableColumn<Object, Object> songName;
+    @FXML private TableColumn<Object, Object> songArtist;
+    @FXML private TableColumn<Object, Object> songGenre;
+    @FXML private TableColumn<Object, Object> songTime;
     //Where the songs in a playlist ListView fxid are
     @FXML private ListView<Song> playlistSong;
     //CRUD of playlist
@@ -127,7 +128,7 @@ public class MyTunesViewController implements Initializable {
             allSong.getSelectionModel().clearSelection();
             if (click.getClickCount()!=2||playlistSong.getSelectionModel().getSelectedItem()==songPlaying) return;
             playSongFromListIndex(playlistSong.getSelectionModel().getSelectedIndex());
-            image[0] = new Image(getClass().getResourceAsStream("../views/images/pause.png"));
+            image[0] = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../views/images/pause.png")));
             playImageSwitch.setImage(image[0]);
             
         });
@@ -137,7 +138,7 @@ public class MyTunesViewController implements Initializable {
             playlistSong.getSelectionModel().clearSelection();
             if (click.getClickCount()!=2||allSong.getSelectionModel().getSelectedItem()==songPlaying) return;
             playSongFromListIndex(allSong.getSelectionModel().getSelectedIndex());
-            image[0] = new Image(getClass().getResourceAsStream("../views/images/pause.png"));
+            image[0] = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../views/images/pause.png")));
             playImageSwitch.setImage(image[0]);
         });
     }
@@ -242,7 +243,7 @@ public class MyTunesViewController implements Initializable {
         int index;
         if(allSong.getSelectionModel().getSelectedItem()!=null) {
             index = allSong.getSelectionModel().getSelectedIndex();
-            image = new Image(getClass().getResourceAsStream("../views/images/pause.png"));
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../views/images/pause.png")));
             playImageSwitch.setImage(image);
         }else{
             index = playlistSong.getSelectionModel().getSelectedIndex();
@@ -258,7 +259,7 @@ public class MyTunesViewController implements Initializable {
         if(allSong.getSelectionModel().getSelectedItem()!=null) {
             index = allSong.getSelectionModel().getSelectedIndex()+1;
             if (allSong.getItems().size() <= index ){ index=0; } //Currently playing song at the end of the list, nothing else to play next so we return...
-            image = new Image(getClass().getResourceAsStream("../views/images/pause.png"));
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../views/images/pause.png")));
             playImageSwitch.setImage(image);
         }else{
             index = playlistSong.getSelectionModel().getSelectedIndex()+1;
@@ -278,7 +279,7 @@ public class MyTunesViewController implements Initializable {
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             mediaPlayer.pause();
             sendTextOnPlayingSong.setText("Paused...");
-            image = new Image(getClass().getResourceAsStream("../views/images/play.png"));
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../views/images/play.png")));
         }else{
             //If the mediaPlayer is paused and you press the play button this code runs.
             if(getSelectedSong()!=songPlaying){ //If the selectedSong list isn't the same as the currently playing song then create new media:
@@ -286,7 +287,7 @@ public class MyTunesViewController implements Initializable {
             }
             sendTextOnPlayingSong.setText(songPlaying.getTitle());
             mediaPlayer.play();
-            image = new Image(getClass().getResourceAsStream("../views/images/pause.png"));
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../views/images/pause.png")));
         }
         playImageSwitch.setImage(image);
     }
@@ -379,8 +380,8 @@ public class MyTunesViewController implements Initializable {
     public void loopSong() {
         Image image;
         loopSongs=!loopSongs;
-        if(loopSongs) image = new Image(getClass().getResourceAsStream("../views/images/loopOn.png"));
-        else image = new Image(getClass().getResourceAsStream("../views/images/loopOff.png"));
+        if(loopSongs) image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../views/images/loopOn.png")));
+        else image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("../views/images/loopOff.png")));
         loopImageSwitch.setImage(image);
     }
 

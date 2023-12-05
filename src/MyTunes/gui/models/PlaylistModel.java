@@ -10,8 +10,8 @@ import javafx.collections.ObservableList;
 import java.util.List;
 
 public class PlaylistModel {
-    private IPlaylistManager manager;
-    private ObservableList<Playlist> playlistsSeen=FXCollections.observableArrayList();
+    private final IPlaylistManager manager;
+    private final ObservableList<Playlist> playlistsSeen=FXCollections.observableArrayList();
     private ObservableList<Song> playlistSongs=FXCollections.observableArrayList();
 
     public IPlaylistManager getManager() {

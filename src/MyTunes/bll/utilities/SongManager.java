@@ -5,7 +5,6 @@ import MyTunes.dal.db.SongDBDAO;
 import MyTunes.dal.file.SongFileDAO;
 import MyTunes.dal.interfaces.ISongDAO;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +13,7 @@ public class SongManager implements ISongManager {
 
 
     private ISongDAO songDAO;
-    private List<Song> songs = new ArrayList<>();
+    private final List<Song> songs = new ArrayList<>();
 
     public SongManager() {
         songDAO = new SongFileDAO();
@@ -55,8 +54,8 @@ public class SongManager implements ISongManager {
         return getAllSongs().stream().filter((song) -> {
             String query = search.toLowerCase().trim().replaceAll("\\s+", ""); //Filter title "name".
             if (song.getTitle().toLowerCase().trim().replaceAll("\\s+", "").contains(query)) return true;
-            else if (song.getArtist() != null && song.getArtist() != "") { //Filter artists.
-                if (song.getArtist().toLowerCase().trim().contains(query)) return true;
+            else if (song.getArtist() != null && !song.getArtist().equals("")) { //Filter artists.
+                return song.getArtist().toLowerCase().trim().contains(query);
             }
             return false;
         }).collect(Collectors.toList());

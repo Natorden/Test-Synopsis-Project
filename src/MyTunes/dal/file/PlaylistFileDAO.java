@@ -9,7 +9,7 @@ import java.util.List;
 public class PlaylistFileDAO implements IPlaylistDAO {
 
     private static final String PLAYLIST_FILE = "data/playlists.txt";
-    private PlaylistRelationsFileDAO playlistRelationsFileDAO = new PlaylistRelationsFileDAO();
+    private final PlaylistRelationsFileDAO playlistRelationsFileDAO = new PlaylistRelationsFileDAO();
 
     public int getHighestFilePlaylistID(){
         int highestID = 0; //Retrieve a id before inserting.
@@ -26,7 +26,6 @@ public class PlaylistFileDAO implements IPlaylistDAO {
     public List<Playlist> getAllPlaylists() {
         List<Playlist> allPlaylists = new ArrayList<>();
         List<String> listOfResults= FileDAO.readFileToList(PLAYLIST_FILE);
-        if(listOfResults==null) return null;
         for (String line : listOfResults) {
             if (line == null) continue;
             String[] separatedLine = line.split(",");

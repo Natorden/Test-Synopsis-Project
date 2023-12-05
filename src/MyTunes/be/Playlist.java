@@ -2,16 +2,19 @@ package MyTunes.be;
 
 import MyTunes.bll.utilities.SongManager;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 
 public class Playlist {
 
     private int id=-1;
-    private String name;
-    private List<PlaylistRelation> relations=new ArrayList<>();
+    private final String name;
+    private final List<PlaylistRelation> relations = new ArrayList<>();
 
-    public Playlist(int id,String name) {
-        this.id=id;
+    public Playlist(int id, String name) {
+        this.id = id;
         this.name = name;
     }
     public Playlist(String name) {
@@ -26,7 +29,7 @@ public class Playlist {
 
     public List<Song> getSongs() {
         List<Song> songsToBeSent=new ArrayList<>();
-        Collections.sort(relations, Comparator.comparing(PlaylistRelation::getOrderId));
+        relations.sort(Comparator.comparing(PlaylistRelation::getOrderId));
         for(PlaylistRelation relation: relations){
             songsToBeSent.add(relation.getSong());
         }
@@ -39,14 +42,15 @@ public class Playlist {
 
     /**
      * Can only be set once. Sets the id for the Song Object.
+     *
      * @param wanted_id The id wanted, typically retrieved from the inserted object into the database.
-     * @return returns true if set, false if already set.
      */
     //Can only be set once.
-    public boolean setIdOnce(int wanted_id){
-        if(getId()==-1) return false;
+    public void setIdOnce(int wanted_id){
+        if(getId() == -1) {
+            return;
+        }
         id=wanted_id;
-        return true;
     }
 
     @Override
@@ -83,10 +87,10 @@ public class Playlist {
     public int getRelationsSize(){ return this.relations.size(); }
 
     public String getTotalSongsTime(){
-        int time=0;
-        for(PlaylistRelation relation:this.relations){
+        int time = 0;
+        for(PlaylistRelation relation : this.relations){
             Song song=relation.getSong();
-            time+=SongManager.minutesStringToSeconds(song.getTime());
+            time += SongManager.minutesStringToSeconds(song.getTime());
         }
         return SongManager.secondsToMinutes(time);
     }

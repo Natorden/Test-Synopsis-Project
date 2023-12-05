@@ -46,7 +46,7 @@ public class SongCRUDWindow implements Initializable {
 
     /**
      * Used to set the saveMode from the MyTunesViewController
-     * @param saveMode
+     * @param saveMode Can be Local or Cloud
      */
     public void setSaveMode(String saveMode) {
         this.saveMode = saveMode;

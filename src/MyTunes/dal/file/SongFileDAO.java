@@ -18,9 +18,9 @@ public class SongFileDAO implements ISongDAO {
     public int getHighestFileSongID(){
         int highestID = 0; //Retrieve a id before inserting.
         List<Song> songs = getAllSongs();
-        for (Song songloop : songs) {
-            if (songloop.getId() >= highestID) {
-                highestID = songloop.getId() + 1;
+        for (Song songLoop : songs) {
+            if (songLoop.getId() >= highestID) {
+                highestID = songLoop.getId() + 1;
             }
         }
         return highestID;
@@ -28,7 +28,7 @@ public class SongFileDAO implements ISongDAO {
 
     @Override
     public List<Song> getAllSongs() {
-        List<Song> allSongs = new ArrayList();
+        List<Song> allSongs = new ArrayList<>();
         List<String> results = FileDAO.readFileToList(ADDED_SONGS);
         for (String line : results) {
             if (line == null || line.isBlank()) continue;
