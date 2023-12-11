@@ -6,6 +6,7 @@ import MyTunes.dal.interfaces.ISongDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,11 +18,16 @@ class SongManagerTest {
 
     private ISongDAO _SongMock;
     private SongManager _SongManagerMock;
+
+    private final List<Song> songs = new ArrayList<>();
+
     @BeforeEach
     void setUp() {
         _SongMock = mock(SongFileDAO.class);
         _SongManagerMock = new SongManager();
 
+
+        songs.add();
     }
 
     @Test
@@ -30,10 +36,9 @@ class SongManagerTest {
 
     @Test
     void getAllSongs() {
-        List<Song> allSongs = Arrays.asList();
-        when(_SongManagerMock.getAllSongs()).thenReturn(allSongs);
+        when(_SongManagerMock.getAllSongs()).thenReturn(songs);
 
-        //assert here (_SongManagerMock.getAllSongs());
+        //assert needed
     }
 
     @Test
