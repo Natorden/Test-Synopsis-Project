@@ -22,6 +22,7 @@ public class PlaylistManager implements IPlaylistManager {
         playlistRelationsDAO=new PlaylistRelationsFileDAO();
     }
 
+
     @Override
     public void setPlaylistDAO(String songDAO) {
         if(songDAO.equals("Local")) {
