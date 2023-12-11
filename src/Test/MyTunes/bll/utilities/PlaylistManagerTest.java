@@ -1,9 +1,7 @@
 package MyTunes.bll.utilities;
 
 import MyTunes.be.Playlist;
-import MyTunes.be.PlaylistRelation;
-import MyTunes.dal.db.PlaylistDBDAO;
-import MyTunes.dal.db.PlaylistRelationsDBDAO;
+
 import MyTunes.dal.file.PlaylistFileDAO;
 import MyTunes.dal.file.PlaylistRelationsFileDAO;
 import MyTunes.dal.interfaces.IPlaylistDAO;
@@ -11,7 +9,6 @@ import MyTunes.dal.interfaces.IPlaylistRelationsDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
@@ -32,7 +29,7 @@ class PlaylistManagerTest {
         _RelationMock = mock(PlaylistRelationsFileDAO.class);
         _PlaylistManager = new PlaylistManager();
 
-        allPlaylists.add();
+        //allPlaylists.add();
     }
 
     @Test
