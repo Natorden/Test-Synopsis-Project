@@ -88,7 +88,7 @@ public class SongDBDAO implements ISongDAO {
 
 
     @Override
-    public void deleteSong(Song song) {
+    public boolean deleteSong(Song song) {
         dataSource = new DBDataSourceConnector();
         try (Connection con = dataSource.getConnection()) {
             String sql = "DELETE FROM Songs WHERE song_id=?";
@@ -96,9 +96,11 @@ public class SongDBDAO implements ISongDAO {
 
             pstmt.setInt(1, song.getId());
             pstmt.executeUpdate();
+            return true;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         }
     }
 

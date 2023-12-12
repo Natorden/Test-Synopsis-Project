@@ -71,13 +71,14 @@ public class Playlist {
      * Removes a song from the list.
      * @param song The song to add.
      */
-    public void removeSong(Song song){
+    public boolean removeSong(Song song){
         for(PlaylistRelation relation:relations){
             if(relation.getSongId()==song.getId()){
                 relations.remove(relation);
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public int getNextOrderId(){

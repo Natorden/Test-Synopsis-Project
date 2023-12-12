@@ -12,7 +12,7 @@ public interface ISongManager {
 
     Song createSong(String title, String filePath, String time, String artist, String category, String album);
     void editSong(Song song);
-    void removeSong(Song song);
+    boolean removeSong(Song song);
 
     void setSongDAO(ISongDAO songDAO);
 }

@@ -41,8 +41,8 @@ public class SongManager implements ISongManager {
     }
 
     @Override
-    public void removeSong(Song song) {
-        songDAO.deleteSong(song);
+    public boolean removeSong(Song song) {
+        return songDAO.deleteSong(song);
     }
 
     @Override

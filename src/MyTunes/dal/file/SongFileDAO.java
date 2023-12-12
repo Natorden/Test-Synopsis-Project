@@ -90,14 +90,22 @@ public class SongFileDAO implements ISongDAO {
     }
 
     @Override
-    public void deleteSong(Song song) {
-        List<Song> songs = getAllSongs();
-        List<String> newSongsList = new ArrayList<>();
-        for (Song songloop : songs) {
-            if (!songloop.getFilePath().equals(song.getFilePath())) {
-                newSongsList.add(songloop.getMetaDate());
+    public boolean deleteSong(Song song) {
+        try {
+            List<Song> songs = getAllSongs();
+            List<String> newSongsList = new ArrayList<>();
+            for (Song songloop : songs) {
+                if (!songloop.getFilePath().equals(song.getFilePath())) {
+                    newSongsList.add(songloop.getMetaDate());
+                }
             }
+            FileDAO.saveListToFile(ADDED_SONGS, newSongsList);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
         }
-        FileDAO.saveListToFile(ADDED_SONGS, newSongsList);
+
+
     }
 }

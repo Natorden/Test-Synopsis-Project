@@ -9,5 +9,5 @@ public interface ISongDAO {
 
     void insertSong(Song song);
     void updateSong(Song song);
-    void deleteSong(Song song);
+    boolean deleteSong(Song song);
 }

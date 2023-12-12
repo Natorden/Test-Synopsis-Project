@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class SongManagerTest {
 
     private ISongDAO _SongMock;
-    private SongManager _SongManager;
+    private ISongManager _SongManager;
 
     private List<Song> allSongs;
 
@@ -32,6 +32,7 @@ class SongManagerTest {
         allSongs.add(new Song("Gold", "C:/music/Imagine Dragons - Gold.mp3"));
 
         when(_SongMock.getAllSongs()).thenReturn(allSongs);
+        when(_SongMock.deleteSong(allSongs.get(1))).thenReturn(true);
     }
 
     @Test
@@ -45,6 +46,7 @@ class SongManagerTest {
 
     @Test
     void createSong() {
+
     }
 
     @Test
@@ -52,7 +54,22 @@ class SongManagerTest {
     }
 
     @Test
-    void removeSong() {
+    void removeSong_ShouldReturnTrue_WhenRemovingExistingSong() {
+        // Arrange
+        Song song = allSongs.get(1);
+        // Act
+        boolean result = _SongManager.removeSong(song);
+        // Assert
+        assertTrue(result);
+    }
+    @Test
+    void removeSong_ShouldReturnFlase_WhenRemovingNonExistingSong() {
+        // Arrange
+        Song song = new Song("FakeSong", "C:/music/FakeBand - FakeSong.mp3");
+        // Act
+        boolean result = _SongManager.removeSong(song);
+        // Assert
+        assertFalse(result);
     }
 
     @Test
