@@ -68,14 +68,20 @@ public class PlaylistFileDAO implements IPlaylistDAO {
     }
 
     @Override
-    public void deletePlaylist(Playlist playlist) {
-        List<Playlist> playlists = getAllPlaylists();
-        List<String> newPlaylistsList = new ArrayList<>();
-        for (Playlist playlistLoop: playlists) {
-            if (playlistLoop.getId()!=playlist.getId()) {
-                newPlaylistsList.add(playlistLoop.getId() + "," + playlistLoop.getName());
+    public boolean deletePlaylist(Playlist playlist) {
+        try {
+            List<Playlist> playlists = getAllPlaylists();
+            List<String> newPlaylistsList = new ArrayList<>();
+            for (Playlist playlistLoop : playlists) {
+                if (playlistLoop.getId() != playlist.getId()) {
+                    newPlaylistsList.add(playlistLoop.getId() + "," + playlistLoop.getName());
+                }
             }
+            FileDAO.saveListToFile(PLAYLIST_FILE, newPlaylistsList);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
         }
-        FileDAO.saveListToFile(PLAYLIST_FILE, newPlaylistsList);
     }
 }

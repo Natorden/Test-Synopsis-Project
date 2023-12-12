@@ -79,7 +79,7 @@ public class PlaylistDBDAO implements IPlaylistDAO {
 
 
     @Override
-    public void deletePlaylist(Playlist playlist) {
+    public boolean deletePlaylist(Playlist playlist) {
         dataSource = new DBDataSourceConnector();
         try (Connection con = dataSource.getConnection()) {
             String sql = "DELETE FROM Playlists WHERE playlist_id=?";
@@ -87,9 +87,11 @@ public class PlaylistDBDAO implements IPlaylistDAO {
 
             pstmt.setInt(1, playlist.getId());
             pstmt.executeUpdate();
+            return true;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         }
     }
 }

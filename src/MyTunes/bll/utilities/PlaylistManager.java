@@ -46,13 +46,13 @@ public class PlaylistManager implements IPlaylistManager {
     }
 
     @Override
-    public void removePlaylist(Playlist playlist) {
-        playlistDAO.deletePlaylist(playlist);
+    public boolean removePlaylist(Playlist playlist) {
+        return playlistDAO.deletePlaylist(playlist);
     }
 
     @Override
     public void addSongToPlaylist(Playlist playlist, Song song) {
-        PlaylistRelation playlistRelation =new PlaylistRelation(playlist,song.getId(),playlist.getNextOrderId());
+        PlaylistRelation playlistRelation = new PlaylistRelation(playlist,song.getId(),playlist.getNextOrderId());
         playlistRelation.setSong(song);
         playlistRelationsDAO.addSongToPlaylist(playlistRelation);
         playlist.addSong(playlistRelation);

@@ -18,8 +18,12 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+
 
 class PlaylistManagerTest {
 
@@ -43,6 +47,7 @@ class PlaylistManagerTest {
 
         when(_PlaylistMock.getAllPlaylists()).thenReturn(allPlaylists);
         when(_PlaylistMock.insertPlaylist(any(Playlist.class))).thenReturn(true);
+        when(_PlaylistMock.deletePlaylist(any(Playlist.class))).thenReturn(true);
     }
 
     @Test
@@ -75,10 +80,34 @@ class PlaylistManagerTest {
 
     @Test
     void removePlaylist() {
+        // Arrange
+        Playlist playlist = new Playlist("Playlist 1");
+        // Act
+        boolean result = _PlaylistManager.removePlaylist(playlist);
+        // Assert
+        assertTrue(result);
     }
 
-    @Test
+    static Stream<Arguments> addSongToPlaylistTestData() {
+        Playlist playListWithSongs = new Playlist("Playlist with 2 songs");
+        playListWithSongs.addSong(new PlaylistRelation(playListWithSongs, 1));
+        playListWithSongs.addSong(new PlaylistRelation(playListWithSongs, 2));
+
+        return Stream.of(
+            Arguments.of(playListWithSongs),
+            Arguments.of(new Playlist("Empty Playlist")));
+    }
+    @ParameterizedTest
+    @MethodSource("addSongToPlaylistTestData")
     void addSongToPlaylist() {
+        // Arrange
+        Song songToAdd = new Song("ExampleSong", "C:/music/ExampleBand - ExampleSong.mp3");
+        Playlist playlist = new Playlist(1, "Playlist 1");
+        // Act
+        _PlaylistManager.addSongToPlaylist(playlist, songToAdd);
+        Song lastSong = playlist.getSongs().get(playlist.getSongs().size() - 1);
+        // Assert
+        assertEquals(lastSong, songToAdd);
     }
 
     static Stream<Arguments> songProvider() {
@@ -113,7 +142,7 @@ class PlaylistManagerTest {
         // Act
         _PlaylistManager.moveSongUpInPlaylist(playlist, song2);
         // Assert
-        assertEquals(2, playlist.getRelations().getFirst().getOrderId());
+        assertEquals(2, playlist.getRelations().get(0).getOrderId());
     }
 
     @ParameterizedTest
@@ -129,6 +158,6 @@ class PlaylistManagerTest {
         // Act
         _PlaylistManager.moveSongDownInPlaylist(playlist, song1);
         // Assert
-        assertEquals(2, playlist.getRelations().getFirst().getOrderId());
+        assertEquals(2, playlist.getRelations().get(0).getOrderId());
     }
 }

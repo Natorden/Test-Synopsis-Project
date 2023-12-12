@@ -12,7 +12,7 @@ public interface IPlaylistManager {
 
     Playlist createPlaylist(String name);
     void editPlaylist(Playlist playlist);
-    void removePlaylist(Playlist playlist);
+    boolean removePlaylist(Playlist playlist);
 
     void addSongToPlaylist(Playlist playlist, Song song);
     void removeSongFromPlaylist(Playlist playlist, Song song);

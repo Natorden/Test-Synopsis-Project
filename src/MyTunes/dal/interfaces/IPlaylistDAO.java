@@ -9,5 +9,5 @@ public interface IPlaylistDAO {
 
     boolean insertPlaylist(Playlist playlist);
     void updatePlaylist(Playlist playlist);
-    void deletePlaylist(Playlist playlist);
+    boolean deletePlaylist(Playlist playlist);
 }
