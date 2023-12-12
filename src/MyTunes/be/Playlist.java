@@ -14,8 +14,8 @@ public class Playlist {
     private final List<PlaylistRelation> relations = new ArrayList<>();
 
     public Playlist(int id, String name) {
+        this(name);
         this.id = id;
-        this.name = name;
     }
     public Playlist(String name) {
         this.name = name;
