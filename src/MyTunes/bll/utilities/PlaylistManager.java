@@ -24,17 +24,9 @@ public class PlaylistManager implements IPlaylistManager {
 
 
     @Override
-    public void setPlaylistDAO(String songDAO) {
-        if(songDAO.equals("Local")) {
-            this.playlistDAO = new PlaylistFileDAO();
-            this.playlistRelationsDAO = new PlaylistRelationsFileDAO();
-
-        }
-        else if(songDAO.equals("Cloud")){
-            this.playlistDAO = new PlaylistDBDAO();
-            this.playlistRelationsDAO = new PlaylistRelationsDBDAO();
-
-        }
+    public void setPlaylistDAO(IPlaylistDAO songDAOm, IPlaylistRelationsDAO relationsDAO) {
+        this.playlistDAO = songDAOm;
+        this.playlistRelationsDAO = relationsDAO;
     }
 
     @Override

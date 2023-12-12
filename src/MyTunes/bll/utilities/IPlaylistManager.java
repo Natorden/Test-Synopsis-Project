@@ -2,6 +2,8 @@ package MyTunes.bll.utilities;
 
 import MyTunes.be.Playlist;
 import MyTunes.be.Song;
+import MyTunes.dal.interfaces.IPlaylistDAO;
+import MyTunes.dal.interfaces.IPlaylistRelationsDAO;
 
 import java.util.List;
 
@@ -17,5 +19,5 @@ public interface IPlaylistManager {
     void moveSongUpInPlaylist(Playlist playlist,Song song);
     void moveSongDownInPlaylist(Playlist playlist,Song song);
 
-    void setPlaylistDAO(String songDAO);
+    void setPlaylistDAO(IPlaylistDAO songDAO, IPlaylistRelationsDAO relationsDAO);
 }

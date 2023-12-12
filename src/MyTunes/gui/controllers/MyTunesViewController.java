@@ -2,6 +2,10 @@ package MyTunes.gui.controllers;
 
 import MyTunes.be.Playlist;
 import MyTunes.be.Song;
+import MyTunes.dal.db.PlaylistDBDAO;
+import MyTunes.dal.db.PlaylistRelationsDBDAO;
+import MyTunes.dal.file.PlaylistFileDAO;
+import MyTunes.dal.file.PlaylistRelationsFileDAO;
 import MyTunes.gui.models.PlaylistModel;
 import MyTunes.gui.models.SongModel;
 import javafx.fxml.FXML;
@@ -368,7 +372,13 @@ public class MyTunesViewController implements Initializable {
      */
     public void onSelectMode() {
         songModel.getManager().setSongDAO(saveMode.getValue());
-        playlistModel.getManager().setPlaylistDAO(saveMode.getValue());
+        if (saveMode.getValue().equals("Local")) {
+            playlistModel.getManager().setPlaylistDAO(new PlaylistFileDAO(), new PlaylistRelationsFileDAO());
+        }
+        else if (saveMode.getValue().equals("Cloud")) {
+            playlistModel.getManager().setPlaylistDAO(new PlaylistDBDAO(), new PlaylistRelationsDBDAO());
+        }
+
         songModel.updateSongsToBeViewed();
         playlistModel.updatePlaylistsToBeViewed();
 

@@ -1,6 +1,10 @@
 package MyTunes.gui.controllers;
 
 import MyTunes.be.Playlist;
+import MyTunes.dal.db.PlaylistDBDAO;
+import MyTunes.dal.db.PlaylistRelationsDBDAO;
+import MyTunes.dal.file.PlaylistFileDAO;
+import MyTunes.dal.file.PlaylistRelationsFileDAO;
 import MyTunes.gui.models.PlaylistModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,13 +33,11 @@ public class PlaylistCRUDWindow implements Initializable {
     public void setSaveMode(String saveMode) {
         this.saveMode = saveMode;
         if(saveMode.equals("Local")) {
-
-            playlistModel.getManager().setPlaylistDAO(saveMode);
-
+            playlistModel.getManager().setPlaylistDAO(new PlaylistFileDAO(), new PlaylistRelationsFileDAO());
             System.out.println("PlaylistFileDAO chosen");
         }
         else if(saveMode.equals("Cloud")){
-            playlistModel.getManager().setPlaylistDAO(saveMode);
+            playlistModel.getManager().setPlaylistDAO(new PlaylistDBDAO(), new PlaylistRelationsDBDAO());
             System.out.println("PlaylistDBDAO chosen");
         }
     }

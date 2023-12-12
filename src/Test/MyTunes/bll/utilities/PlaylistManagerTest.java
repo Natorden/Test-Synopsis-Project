@@ -9,8 +9,10 @@ import MyTunes.dal.interfaces.IPlaylistRelationsDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,8 +30,13 @@ class PlaylistManagerTest {
         _PlaylistMock = mock(PlaylistFileDAO.class);
         _RelationMock = mock(PlaylistRelationsFileDAO.class);
         _PlaylistManager = new PlaylistManager();
+        _PlaylistManager.setPlaylistDAO(_PlaylistMock, _RelationMock);
 
-        //allPlaylists.add();
+        allPlaylists = new ArrayList<>();
+        allPlaylists.add(new Playlist(1, "Playlist 1"));
+        allPlaylists.add(new Playlist(2, "Playlist 2"));
+
+        when(_PlaylistMock.getAllPlaylists()).thenReturn(allPlaylists);
     }
 
     @Test
@@ -38,8 +45,11 @@ class PlaylistManagerTest {
 
     @Test
     void getAllPlaylists() {
-        when(_PlaylistManager.getAllPlaylists()).thenReturn(allPlaylists);
-
+        // Arrange - Done is setup
+        // Act
+        List<Playlist> result = _PlaylistManager.getAllPlaylists();
+        // Assert
+        assertEquals(allPlaylists, result);
     }
 
     @Test
