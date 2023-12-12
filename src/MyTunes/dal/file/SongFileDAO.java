@@ -71,22 +71,27 @@ public class SongFileDAO implements ISongDAO {
     }
 
     @Override
-    public void updateSong(Song song) {
-        List<Song> songs = getAllSongs();
-        List<String> newSongsList = new ArrayList<>();
-        for (Song songloop : songs) {
-            if (songloop.getFilePath().equals(song.getFilePath()) || songloop.getTitle().equals(song.getTitle())) {
-                songloop = song;
+    public boolean updateSong(Song song) {
+        try {
+            List<Song> songs = getAllSongs();
+            List<String> newSongsList = new ArrayList<>();
+            for (Song songloop : songs) {
+                if (songloop.getFilePath().equals(song.getFilePath()) || songloop.getTitle().equals(song.getTitle())) {
+                    songloop = song;
+                }
+                int highestID = 0; //Retrieve a id before inserting.
+                if (song.getId() == -1) {
+                    highestID = getHighestFileSongID();
+                } else {
+                    highestID = song.getId();
+                }
+                newSongsList.add(highestID + "," + formatSongToFileString(songloop));
             }
-            int highestID = 0; //Retrieve a id before inserting.
-            if (song.getId() == -1) {
-                highestID=getHighestFileSongID();
-            }else{
-                highestID=song.getId();
-            }
-            newSongsList.add(highestID+","+formatSongToFileString(songloop));
+            FileDAO.saveListToFile(ADDED_SONGS, newSongsList);
+            return true;
+        } catch (Exception ex) {
+            return false;
         }
-        FileDAO.saveListToFile(ADDED_SONGS, newSongsList);
     }
 
     @Override

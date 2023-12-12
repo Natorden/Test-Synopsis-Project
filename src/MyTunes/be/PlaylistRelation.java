@@ -1,5 +1,7 @@
 package MyTunes.be;
 
+import java.util.Objects;
+
 public class PlaylistRelation {
     private final Playlist playlist;
     private final Integer songId;
@@ -41,5 +43,22 @@ public class PlaylistRelation {
 
     public Integer getSongId() {
         return songId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        PlaylistRelation other = (PlaylistRelation) obj;
+        return Objects.equals(playlist, other.playlist) && Objects.equals(songId, other.songId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playlist, songId);
     }
 }

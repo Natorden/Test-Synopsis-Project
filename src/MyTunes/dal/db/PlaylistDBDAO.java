@@ -62,7 +62,7 @@ public class PlaylistDBDAO implements IPlaylistDAO {
 
 
     @Override
-    public void updatePlaylist(Playlist playlist) {
+    public boolean updatePlaylist(Playlist playlist) {
         dataSource = new DBDataSourceConnector();
         try (Connection con = dataSource.getConnection()) {
             String sql = "UPDATE Playlists SET playlist_name=? WHERE playlist_id=?";
@@ -72,8 +72,10 @@ public class PlaylistDBDAO implements IPlaylistDAO {
             pstmt.setString(1, playlist.getName());
             pstmt.setInt(2, playlist.getId());
             pstmt.executeUpdate();
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         }
     }
 

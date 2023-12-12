@@ -41,8 +41,8 @@ public class PlaylistManager implements IPlaylistManager {
     }
 
     @Override
-    public void editPlaylist(Playlist playlist) {
-        playlistDAO.updatePlaylist(playlist);
+    public boolean editPlaylist(Playlist playlist) {
+        return playlistDAO.updatePlaylist(playlist);
     }
 
     @Override

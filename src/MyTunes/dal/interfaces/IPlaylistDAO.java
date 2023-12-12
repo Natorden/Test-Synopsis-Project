@@ -8,6 +8,6 @@ public interface IPlaylistDAO {
     List<Playlist> getAllPlaylists();
 
     boolean insertPlaylist(Playlist playlist);
-    void updatePlaylist(Playlist playlist);
+    boolean updatePlaylist(Playlist playlist);
     boolean deletePlaylist(Playlist playlist);
 }

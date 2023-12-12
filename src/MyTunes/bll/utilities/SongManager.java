@@ -36,8 +36,8 @@ public class SongManager implements ISongManager {
     }
 
     @Override
-    public void editSong(Song song) {
-        songDAO.updateSong(song);
+    public boolean editSong(Song song) {
+        return songDAO.updateSong(song);
     }
 
     @Override

@@ -37,6 +37,7 @@ class SongManagerTest {
 
         when(_SongMock.getAllSongs()).thenReturn(allSongs);
         when(_SongMock.deleteSong(allSongs.get(1))).thenReturn(true);
+        when(_SongMock.updateSong(any(Song.class))).thenReturn(true);
     }
 
     @Test
@@ -45,6 +46,7 @@ class SongManagerTest {
         // Act
         List<Song> result = _SongManager.getAllSongs();
         // Assert
+        verify(_SongMock).getAllSongs();
         assertEquals(allSongs, result);
     }
 
@@ -63,6 +65,14 @@ class SongManagerTest {
 
     @Test
     void editSong() {
+        // Arrange
+        Song song = allSongs.get(0);
+        Song newSong = new Song(song.getId(), "New Title", song.getFilePath());
+        // Act
+        boolean result = _SongManager.editSong(newSong);
+        // Assert
+        verify(_SongMock).updateSong(newSong);
+        assertTrue(result);
     }
 
     @Test
@@ -72,6 +82,7 @@ class SongManagerTest {
         // Act
         boolean result = _SongManager.removeSong(song);
         // Assert
+        verify(_SongMock).deleteSong(song);
         assertTrue(result);
     }
     @Test
@@ -81,6 +92,7 @@ class SongManagerTest {
         // Act
         boolean result = _SongManager.removeSong(song);
         // Assert
+        verify(_SongMock).deleteSong(song);
         assertFalse(result);
     }
 

@@ -71,7 +71,7 @@ public class SongDBDAO implements ISongDAO {
 
 
     @Override
-    public void updateSong(Song song) {
+    public boolean updateSong(Song song) {
         dataSource = new DBDataSourceConnector();
         try (Connection con = dataSource.getConnection()) {
 
@@ -81,8 +81,10 @@ public class SongDBDAO implements ISongDAO {
             setPreparedSongValues(song, pstmt);
             pstmt.setInt(7, song.getId());
             pstmt.executeUpdate();
+            return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return false;
         }
     }
 

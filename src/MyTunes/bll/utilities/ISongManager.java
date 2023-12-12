@@ -11,7 +11,7 @@ public interface ISongManager {
     List<Song> filterSong(String search);
 
     Song createSong(String title, String filePath, String time, String artist, String category, String album);
-    void editSong(Song song);
+    boolean editSong(Song song);
     boolean removeSong(Song song);
 
     void setSongDAO(ISongDAO songDAO);

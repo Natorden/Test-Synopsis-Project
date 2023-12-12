@@ -11,7 +11,7 @@ public interface IPlaylistManager {
     List<Playlist> getAllPlaylists();
 
     Playlist createPlaylist(String name);
-    void editPlaylist(Playlist playlist);
+    boolean editPlaylist(Playlist playlist);
     boolean removePlaylist(Playlist playlist);
 
     void addSongToPlaylist(Playlist playlist, Song song);

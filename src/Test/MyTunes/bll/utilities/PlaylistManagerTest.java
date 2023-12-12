@@ -48,6 +48,7 @@ class PlaylistManagerTest {
         when(_PlaylistMock.getAllPlaylists()).thenReturn(allPlaylists);
         when(_PlaylistMock.insertPlaylist(any(Playlist.class))).thenReturn(true);
         when(_PlaylistMock.deletePlaylist(any(Playlist.class))).thenReturn(true);
+        when(_PlaylistMock.updatePlaylist(any(Playlist.class))).thenReturn(true);
     }
 
     @Test
@@ -56,6 +57,7 @@ class PlaylistManagerTest {
         // Act
         List<Playlist> result = _PlaylistManager.getAllPlaylists();
         // Assert
+        verify(_PlaylistMock).getAllPlaylists();
         assertEquals(allPlaylists, result);
     }
 
@@ -74,8 +76,14 @@ class PlaylistManagerTest {
 
     @Test
     void editPlaylist() {
+        // Arrange
         Playlist playlist = allPlaylists.get(1);
-
+        playlist.addSong(new PlaylistRelation(playlist, 1));
+        // Act
+        boolean result = _PlaylistManager.editPlaylist(playlist);
+        // Assert
+        verify(_PlaylistMock).updatePlaylist(playlist);
+        assertTrue(result);
     }
 
     @Test
@@ -85,6 +93,7 @@ class PlaylistManagerTest {
         // Act
         boolean result = _PlaylistManager.removePlaylist(playlist);
         // Assert
+        verify(_PlaylistMock).deletePlaylist(playlist);
         assertTrue(result);
     }
 
@@ -107,6 +116,7 @@ class PlaylistManagerTest {
         _PlaylistManager.addSongToPlaylist(playlist, songToAdd);
         Song lastSong = playlist.getSongs().get(playlist.getSongs().size() - 1);
         // Assert
+        verify(_RelationMock).addSongToPlaylist(new PlaylistRelation(playlist,songToAdd.getId(),playlist.getNextOrderId()));
         assertEquals(lastSong, songToAdd);
     }
 
