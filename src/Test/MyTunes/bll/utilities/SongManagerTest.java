@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class SongManagerTest {
 
@@ -51,7 +50,15 @@ class SongManagerTest {
 
     @Test
     void createSong() {
+        // Arrange
+        Song expectedSong = new Song("Ultimate2", "C:/music/Denzel Curry - Ultimate.mp3", "", "", "", "");
 
+        // Act
+        Song actualSong = _SongManager.createSong("Ultimate2", "C:/music/Denzel Curry - Ultimate.mp3", "", "", "", "");
+
+        // Assert
+        verify(_SongMock).insertSong(expectedSong);
+        assertEquals(expectedSong, actualSong);
     }
 
     @Test
