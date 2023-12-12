@@ -1,6 +1,7 @@
 package MyTunes.be;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Song {
 
@@ -115,6 +116,24 @@ public class Song {
     public String getMetaDate(){
         String metaData =  this.id + "," + this.title + "," + this.filePath + "," + this.time + "," + this.artist + "," + this.category  + "," + this.album;
         return  metaData;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Song other = (Song) obj;
+        return Objects.equals(title, other.title) && Objects.equals(filePath, other.filePath)
+                && Objects.equals(artist, other.artist) && Objects.equals(time, other.time);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, filePath);
     }
 }
 

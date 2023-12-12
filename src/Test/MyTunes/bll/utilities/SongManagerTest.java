@@ -6,9 +6,14 @@ import MyTunes.dal.file.SongFileDAO;
 import MyTunes.dal.interfaces.ISongDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -63,7 +68,7 @@ class SongManagerTest {
         assertTrue(result);
     }
     @Test
-    void removeSong_ShouldReturnFlase_WhenRemovingNonExistingSong() {
+    void removeSong_ShouldReturnFalse_WhenRemovingNonExistingSong() {
         // Arrange
         Song song = new Song("FakeSong", "C:/music/FakeBand - FakeSong.mp3");
         // Act
@@ -72,7 +77,25 @@ class SongManagerTest {
         assertFalse(result);
     }
 
-    @Test
-    void filterSong() {
+    static Stream<Arguments> filterSongTestData() {
+        List<Song> songs = new ArrayList<>();
+        songs.add(new Song("Ultimate", "C:/music/Denzel Curry - Ultimate.mp3"));
+        songs.add(new Song("Gold", "C:/music/Imagine Dragons - Gold.mp3"));
+        List<Song> expectedSongsForUlti = new ArrayList<>();
+        expectedSongsForUlti.add(songs.get(0));
+        return Stream.of(
+                Arguments.of("Ulti", expectedSongsForUlti),
+                Arguments.of("l", songs),
+                Arguments.of("z", new ArrayList<Song>())
+        );
+    }
+    @ParameterizedTest
+    @MethodSource("filterSongTestData")
+    void filterSong_ShouldReturnMatchingSongs(String filter, ArrayList<Song> expectedSongs) {
+        // Arrange - Done in MethodSource
+        // Act
+        List<Song> returnedSongs = _SongManager.filterSong(filter);
+        // Assert
+        assertEquals(expectedSongs, returnedSongs);
     }
 }
