@@ -22,7 +22,6 @@ public class PlaylistManager implements IPlaylistManager {
         playlistRelationsDAO=new PlaylistRelationsFileDAO();
     }
 
-
     @Override
     public void setPlaylistDAO(IPlaylistDAO songDAOm, IPlaylistRelationsDAO relationsDAO) {
         this.playlistDAO = songDAOm;

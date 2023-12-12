@@ -40,10 +40,6 @@ class PlaylistManagerTest {
     }
 
     @Test
-    void setPlaylistDAO() {
-    }
-
-    @Test
     void getAllPlaylists() {
         // Arrange - Done in setUp
         // Act

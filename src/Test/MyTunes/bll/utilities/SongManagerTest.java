@@ -35,10 +35,6 @@ class SongManagerTest {
     }
 
     @Test
-    void setSongDAO() {
-    }
-
-    @Test
     void getAllSongs() {
         // Arrange - Done in setUp
         // Act
