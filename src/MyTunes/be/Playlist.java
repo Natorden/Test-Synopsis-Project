@@ -5,6 +5,7 @@ import MyTunes.bll.utilities.SongManager;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Playlist {
@@ -94,5 +95,22 @@ public class Playlist {
             time += SongManager.minutesStringToSeconds(song.getTime());
         }
         return SongManager.secondsToMinutes(time);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Playlist other = (Playlist) obj;
+        return Objects.equals(id, other.id) && Objects.equals(name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

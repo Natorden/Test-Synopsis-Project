@@ -44,7 +44,7 @@ public class PlaylistDBDAO implements IPlaylistDAO {
 
 
     @Override
-    public void insertPlaylist(Playlist playlist) {
+    public boolean insertPlaylist(Playlist playlist) {
         dataSource = new DBDataSourceConnector();
         try (Connection con = dataSource.getConnection()) {
 
@@ -57,6 +57,7 @@ public class PlaylistDBDAO implements IPlaylistDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return true;
     }
 
 

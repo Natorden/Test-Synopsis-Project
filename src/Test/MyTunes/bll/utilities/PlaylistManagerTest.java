@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
 
 class PlaylistManagerTest {
 
@@ -38,11 +38,11 @@ class PlaylistManagerTest {
         _PlaylistManager.setPlaylistDAO(_PlaylistMock, _RelationMock);
 
         allPlaylists = new ArrayList<>();
-        allPlaylists.add(new Playlist(1, "Playlist 1"));
-        allPlaylists.add(new Playlist(2, "Playlist 2"));
+        allPlaylists.add(new Playlist(0, "Playlist 1"));
+        allPlaylists.add(new Playlist(1, "Playlist 2"));
 
         when(_PlaylistMock.getAllPlaylists()).thenReturn(allPlaylists);
-        when(_PlaylistMock.getAllPlaylists()).thenReturn(allPlaylists);
+        when(_PlaylistMock.insertPlaylist(any(Playlist.class))).thenReturn(true);
     }
 
     @Test
@@ -55,11 +55,22 @@ class PlaylistManagerTest {
     }
 
     @Test
-    void createPlaylist() {
+    void createPlaylist_shouldPass_whenPlaylistCreated() {
+        // Arrange
+        Playlist expectedPlaylist = new Playlist("Playlist 3");
+
+        // Act
+        Playlist actualPlaylist = _PlaylistManager.createPlaylist("Playlist 3");
+
+        // Assert
+        verify(_PlaylistMock).insertPlaylist(expectedPlaylist);
+        assertEquals(expectedPlaylist, actualPlaylist);
     }
 
     @Test
     void editPlaylist() {
+        Playlist playlist = allPlaylists.get(1);
+
     }
 
     @Test

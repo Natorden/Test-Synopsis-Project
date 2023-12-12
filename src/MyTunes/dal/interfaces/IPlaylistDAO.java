@@ -7,7 +7,7 @@ import java.util.List;
 public interface IPlaylistDAO {
     List<Playlist> getAllPlaylists();
 
-    void insertPlaylist(Playlist playlist);
+    boolean insertPlaylist(Playlist playlist);
     void updatePlaylist(Playlist playlist);
     void deletePlaylist(Playlist playlist);
 }
