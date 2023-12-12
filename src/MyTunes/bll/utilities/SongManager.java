@@ -19,12 +19,8 @@ public class SongManager implements ISongManager {
         songDAO = new SongFileDAO();
     }
 
-    public void setSongDAO(String songDAO) {
-        if (songDAO.equals("Local")) {
-            this.songDAO = new SongFileDAO();
-        } else if (songDAO.equals("Cloud")) {
-            this.songDAO = new SongDBDAO();
-        }
+    public void setSongDAO(ISongDAO songDAO) {
+        this.songDAO = songDAO;
     }
 
     @Override

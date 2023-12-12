@@ -1,5 +1,6 @@
 package MyTunes.bll.utilities;
 
+import MyTunes.be.Playlist;
 import MyTunes.be.Song;
 import MyTunes.dal.file.SongFileDAO;
 import MyTunes.dal.interfaces.ISongDAO;
@@ -9,23 +10,28 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class SongManagerTest {
 
     private ISongDAO _SongMock;
-    private SongManager _SongManagerMock;
+    private SongManager _SongManager;
 
-    private final List<Song> songs = new ArrayList<>();
+    private List<Song> allSongs;
 
     @BeforeEach
     void setUp() {
         _SongMock = mock(SongFileDAO.class);
-        _SongManagerMock = new SongManager();
+        _SongManager = new SongManager();
+        _SongManager.setSongDAO(_SongMock);
 
+        allSongs = new ArrayList<>();
+        allSongs.add(new Song("Ultimate", "C:/music/Denzel Curry - Ultimate.mp3"));
+        allSongs.add(new Song("Gold", "C:/music/Imagine Dragons - Gold.mp3"));
 
-        //songs.add();
+        when(_SongMock.getAllSongs()).thenReturn(allSongs);
     }
 
     @Test
@@ -34,9 +40,11 @@ class SongManagerTest {
 
     @Test
     void getAllSongs() {
-        when(_SongManagerMock.getAllSongs()).thenReturn(songs);
-
-        //assert needed
+        // Arrange - Done in setUp
+        // Act
+        List<Song> result = _SongManager.getAllSongs();
+        // Assert
+        assertEquals(allSongs, result);
     }
 
     @Test

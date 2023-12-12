@@ -45,7 +45,7 @@ class PlaylistManagerTest {
 
     @Test
     void getAllPlaylists() {
-        // Arrange - Done is setup
+        // Arrange - Done in setUp
         // Act
         List<Playlist> result = _PlaylistManager.getAllPlaylists();
         // Assert

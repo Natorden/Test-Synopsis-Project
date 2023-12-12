@@ -2,6 +2,8 @@ package MyTunes.gui.controllers;
 
 import MyTunes.be.Song;
 import MyTunes.bll.utilities.SongManager;
+import MyTunes.dal.db.SongDBDAO;
+import MyTunes.dal.file.SongFileDAO;
 import MyTunes.gui.models.SongModel;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
@@ -51,9 +53,9 @@ public class SongCRUDWindow implements Initializable {
     public void setSaveMode(String saveMode) {
         this.saveMode = saveMode;
         if (saveMode.equals("Local")) {
-            songModel.getManager().setSongDAO(saveMode);
+            songModel.getManager().setSongDAO(new SongFileDAO());
         } else if (saveMode.equals("Cloud")) {
-            songModel.getManager().setSongDAO(saveMode);
+            songModel.getManager().setSongDAO(new SongDBDAO());
         }
     }
 

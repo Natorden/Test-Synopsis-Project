@@ -1,6 +1,7 @@
 package MyTunes.bll.utilities;
 
 import MyTunes.be.Song;
+import MyTunes.dal.interfaces.ISongDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,5 +14,5 @@ public interface ISongManager {
     void editSong(Song song);
     void removeSong(Song song);
 
-    void setSongDAO(String songDAO);
+    void setSongDAO(ISongDAO songDAO);
 }
