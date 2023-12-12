@@ -1,6 +1,5 @@
 package MyTunes.bll.utilities;
 
-import MyTunes.be.Playlist;
 import MyTunes.be.Song;
 import MyTunes.dal.file.SongFileDAO;
 import MyTunes.dal.interfaces.ISongDAO;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
