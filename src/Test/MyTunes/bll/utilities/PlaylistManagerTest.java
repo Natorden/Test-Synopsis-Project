@@ -147,8 +147,9 @@ class PlaylistManagerTest {
                 playlist.addSong(new PlaylistRelation(playlist, song.getId()));
             }
             // Act
-            playlist.removeSong(songs.get(index));
+            _PlaylistManager.removeSongFromPlaylist(playlist, songs.get(index));
             // Assert
+            verify(_RelationMock).removeSongFromPlaylist(playlist, songs.get(index));
             assertEquals(expected, playlist.getSongs().size());
         }
 
