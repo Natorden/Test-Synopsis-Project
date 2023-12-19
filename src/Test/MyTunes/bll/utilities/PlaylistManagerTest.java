@@ -3,6 +3,7 @@ package MyTunes.bll.utilities;
 import MyTunes.be.Playlist;
 import MyTunes.be.PlaylistRelation;
 import MyTunes.be.Song;
+import java.util.Arrays;
 import MyTunes.dal.file.PlaylistFileDAO;
 import MyTunes.dal.file.PlaylistRelationsFileDAO;
 import MyTunes.dal.interfaces.IPlaylistDAO;
@@ -23,7 +24,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
-
 
 class PlaylistManagerTest {
 
@@ -103,9 +103,10 @@ class PlaylistManagerTest {
         playListWithSongs.addSong(new PlaylistRelation(playListWithSongs, 2));
 
         return Stream.of(
-            Arguments.of(playListWithSongs),
-            Arguments.of(new Playlist("Empty Playlist")));
+                Arguments.of(playListWithSongs),
+                Arguments.of(new Playlist("Empty Playlist")));
     }
+
     @ParameterizedTest
     @MethodSource("addSongToPlaylistTestData")
     void addSongToPlaylist() {
@@ -116,35 +117,70 @@ class PlaylistManagerTest {
         _PlaylistManager.addSongToPlaylist(playlist, songToAdd);
         Song lastSong = playlist.getSongs().get(playlist.getSongs().size() - 1);
         // Assert
-        verify(_RelationMock).addSongToPlaylist(new PlaylistRelation(playlist,songToAdd.getId(),playlist.getNextOrderId()));
+        verify(_RelationMock)
+                .addSongToPlaylist(new PlaylistRelation(playlist, songToAdd.getId(), playlist.getNextOrderId()));
         assertEquals(lastSong, songToAdd);
     }
 
-    static Stream<Arguments> songProvider() {
+    static Stream<Arguments> removeSongFromPlaylist() {
         return Stream.of(
                 Arguments.of(new Playlist(1, "Playlist 1"),
-                        new Song(1, "Song 1", "C:\\Song1.mp3", "00:00:00", "Artist 1", "Category 1", "Album 1"),
-                        new Song(2, "Song 2", "C:\\Song2.mp3", "00:00:00", "Artist 2", "Category 2", "Album 2")));
+                        Arrays.asList(
+                                new Song(1, "Song 1", "C:\\Song1.mp3", "00:00:00", "Artist 1", "Category 1",
+                                        "Album 1"),
+                                new Song(2, "Song 2", "C:\\Song2.mp3", "00:00:00", "Artist 2", "Category 2",
+                                        "Album 2")),
+                        1, 0), // Expected result
+                Arguments.of(new Playlist(2, "Playlist 2"),
+                        Arrays.asList(
+                                new Song(1, "Song 1", "C:\\Song1.mp3", "00:00:00", "Artist 1", "Category 1",
+                                        "Album 1"),
+                                new Song(2, "Song 2", "C:\\Song2.mp3", "00:00:00", "Artist 2", "Category 2",
+                                        "Album 2"),
+                                new Song(3, "Song 3", "C:\\Song3.mp3", "00:00:00", "Artist 3", "Category 3",
+                                        "Album 3")),
+                        2, 2) // Expected result
+        );
     }
 
     @ParameterizedTest
-    @MethodSource("songProvider")
-    void removeSongFromPlaylist(Playlist playlist, Song song1, Song song2) {
+    @MethodSource("removeSongFromPlaylist")
+    void removeSongFromPlaylist_shouldPass_whenSongRemoved(Playlist playlist,
+            List<Song> songs, int expected,
+            int index) {
         // Arrange
-        playlist.addSong(new PlaylistRelation(playlist, song1.getId()));
-        playlist.addSong(new PlaylistRelation(playlist, song2.getId()));
+        for (Song song : songs) {
+            playlist.addSong(new PlaylistRelation(playlist, song.getId()));
+        }
         // Act
-        playlist.removeSong(song1);
+        playlist.removeSong(songs.get(index));
+        // Assert
+        assertEquals(expected, playlist.getSongs().size());
+    }
+
+    @Test
+    void removeSongFromPlaylist_shouldFail_whenSongNotInPlaylist() {
+        // Arrange
+        Playlist playlist = new Playlist(1, "Playlist 1");
+        Song song1 = new Song(1, "Song 1", "C:\\Song1.mp3", "00:00:00", "Artist 1",
+                "Category 1", "Album 1");
+        Song song2 = new Song(2, "Song 2", "C:\\Song2.mp3", "00:00:00", "Artist 2",
+                "Category 2", "Album 2");
+        playlist.addSong(new PlaylistRelation(playlist, song1.getId()));
+        // Act
+        playlist.removeSong(song2);
         // Assert
         assertEquals(1, playlist.getSongs().size());
     }
 
     @ParameterizedTest
     @MethodSource("songProvider")
-    void moveSongUpInPlaylist(Playlist playlist, Song song1, Song song2) {
+    void moveSongUpInPlaylist(Playlist playlist, Song song1, Song son g2){
         // Arrange
-        PlaylistRelation relation1 = new PlaylistRelation(playlist, song1.getId(), 1);
-        PlaylistRelation relation2 = new PlaylistRelation(playlist, song2.getId(), 2);
+        PlaylistRelation relation1 = new PlaylistRelation(playlist, song1.getId(),
+                1);
+        PlaylistRelation relation2 = new PlaylistRelation(playlist, song2.getId(),
+                2);
         relation1.setSong(song1);
         relation2.setSong(song2);
         playlist.addSong(relation1);
@@ -159,14 +195,16 @@ class PlaylistManagerTest {
     @MethodSource("songProvider")
     void moveSongDownInPlaylist(Playlist playlist, Song song1, Song song2) {
         // Arrange
-        PlaylistRelation relation1 = new PlaylistRelation(playlist, song1.getId(), 1);
-        PlaylistRelation relation2 = new PlaylistRelation(playlist, song2.getId(), 2);
+        PlaylistRelation relation1 = new PlaylistRelation(playlist, song1.getId(),
+                1);
+        PlaylistRelation relation2 = new PlaylistRelation(playlist, song2.getId(),
+                2);
         relation1.setSong(song1);
         relation2.setSong(song2);
         playlist.addSong(relation1);
         playlist.addSong(relation2);
         // Act
-        _PlaylistManager.moveSongDownInPlaylist(playlist, song1);
+        _PlaylistManager.moveSongUpInPlaylist(playlist, song1);
         // Assert
         assertEquals(2, playlist.getRelations().get(0).getOrderId());
     }
