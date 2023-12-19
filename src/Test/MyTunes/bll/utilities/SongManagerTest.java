@@ -49,7 +49,7 @@ class SongManagerTest {
     }
 
     @Test
-    void createSong() {
+    void createSong_shouldPass_whenSongCreated() {
         // Arrange
         Song expectedSong = new Song("Ultimate2", "C:/music/Denzel Curry - Ultimate.mp3", "", "", "", "");
 
@@ -62,7 +62,7 @@ class SongManagerTest {
     }
 
     @Test
-    void editSong() {
+    void editSong_ShouldReturnTrue_whenUpdatingExistingSong() {
         // Arrange
         Song song = allSongs.get(0);
         Song newSong = new Song(song.getId(), "New Title", song.getFilePath());

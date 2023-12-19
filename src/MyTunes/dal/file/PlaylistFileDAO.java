@@ -46,12 +46,11 @@ public class PlaylistFileDAO implements IPlaylistDAO {
     }
 
     @Override
-    public boolean insertPlaylist(Playlist playlist) {
+    public void insertPlaylist(Playlist playlist) {
         int highestID = 0; //Retrieve a id before inserting.
         if (playlist.getId() == -1) { highestID=getHighestFilePlaylistID(); }
         FileDAO.appendLineToFile(PLAYLIST_FILE,highestID+","+playlist.getName());
         playlist.setIdOnce(highestID);
-        return true;
     }
 
     @Override

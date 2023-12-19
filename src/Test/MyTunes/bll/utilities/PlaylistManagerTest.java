@@ -46,7 +46,6 @@ class PlaylistManagerTest {
         allPlaylists.add(new Playlist(1, "Playlist 2"));
 
         when(_PlaylistMock.getAllPlaylists()).thenReturn(allPlaylists);
-        when(_PlaylistMock.insertPlaylist(any(Playlist.class))).thenReturn(true);
         when(_PlaylistMock.deletePlaylist(any(Playlist.class))).thenReturn(true);
         when(_PlaylistMock.updatePlaylist(any(Playlist.class))).thenReturn(true);
     }
@@ -75,7 +74,7 @@ class PlaylistManagerTest {
     }
 
     @Test
-    void editPlaylist() {
+    void editPlaylist_ShouldReturnTrue_whenUpdatingExistingPlaylist() {
         // Arrange
         Playlist playlist = allPlaylists.get(1);
         playlist.addSong(new PlaylistRelation(playlist, 1));
@@ -87,7 +86,7 @@ class PlaylistManagerTest {
     }
 
     @Test
-    void removePlaylist() {
+    void removePlaylist_ShouldReturnTrue_WhenRemovingExistingPlaylist() {
         // Arrange
         Playlist playlist = new Playlist("Playlist 1");
         // Act
