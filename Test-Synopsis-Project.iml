@@ -24,12 +24,12 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="lib" level="project" />
     <orderEntry type="library" exported="" name="mssql-jdbc-8.4.1.jre14" level="project" />
     <orderEntry type="library" exported="" name="mockito-core-5.8.0" level="project" />
     <orderEntry type="library" exported="" name="junit-jupiter-5.9.1" level="project" />
     <orderEntry type="library" name="junit.jupiter" level="project" />
     <orderEntry type="library" name="mockito.core" level="project" />
     <orderEntry type="library" name="microsoft.sqlserver.mssql.jdbc" level="project" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
   </component>
 </module>

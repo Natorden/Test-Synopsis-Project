@@ -30,7 +30,7 @@ class SongManagerTest {
         _SongManager.setSongDAO(_SongMock);
 
         allSongs = new ArrayList<>();
-        allSongs.add(new Song("Ultimate", "C:/music/Denzel Curry - Ultimate.mp3"));
+        allSongs.add(new Song("Ultimate", "C:/music/Denzel Curry - Ultimate.mp3", "June 9, 2015", "Denzel Rae Don Curry", "Hip Hop", ""));
         allSongs.add(new Song("Gold", "C:/music/Imagine Dragons - Gold.mp3"));
 
         when(_SongMock.getAllSongs()).thenReturn(allSongs);
@@ -96,14 +96,16 @@ class SongManagerTest {
 
     static Stream<Arguments> filterSongTestData() {
         List<Song> songs = new ArrayList<>();
-        songs.add(new Song("Ultimate", "C:/music/Denzel Curry - Ultimate.mp3"));
+        songs.add(new Song("Ultimate", "C:/music/Denzel Curry - Ultimate.mp3", "June 9, 2015", "Denzel Rae Don Curry", "Hip Hop", ""));
+        //String title, String filePath, String time, String artist, String category, String album
         songs.add(new Song("Gold", "C:/music/Imagine Dragons - Gold.mp3"));
         List<Song> expectedSongsForUlti = new ArrayList<>();
         expectedSongsForUlti.add(songs.get(0));
         return Stream.of(
                 Arguments.of("Ulti", expectedSongsForUlti),
+                Arguments.of("Curry", expectedSongsForUlti),
                 Arguments.of("l", songs),
-                Arguments.of("z", new ArrayList<Song>())
+                Arguments.of("false_search", new ArrayList<Song>())
         );
     }
     @ParameterizedTest

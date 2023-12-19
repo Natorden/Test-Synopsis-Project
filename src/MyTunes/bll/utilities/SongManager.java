@@ -1,7 +1,6 @@
 package MyTunes.bll.utilities;
 
 import MyTunes.be.Song;
-import MyTunes.dal.db.SongDBDAO;
 import MyTunes.dal.file.SongFileDAO;
 import MyTunes.dal.interfaces.ISongDAO;
 
@@ -49,21 +48,14 @@ public class SongManager implements ISongManager {
     public List<Song> filterSong(String search) {
         return getAllSongs().stream().filter((song) -> {
             String query = search.toLowerCase().trim().replaceAll("\\s+", ""); //Filter title "name".
-            if (song.getTitle().toLowerCase().trim().replaceAll("\\s+", "").contains(query)) return true;
+            if (song.getTitle().toLowerCase().trim().replaceAll("\\s+", "").contains(query)) {
+                return true;
+            }
             else if (song.getArtist() != null && !song.getArtist().equals("")) { //Filter artists.
                 return song.getArtist().toLowerCase().trim().contains(query);
             }
             return false;
         }).collect(Collectors.toList());
-    }
-
-
-    public static int minutesStringToSeconds(String time){
-        if(!time.contains(":")) return Integer.parseInt(time);
-        String[] separatedLine = time.split(":");
-        int minutes=Integer.parseInt(separatedLine[0]);
-        int seconds=Integer.parseInt(separatedLine[1]);
-        return minutes*60+seconds;
     }
 
     /**

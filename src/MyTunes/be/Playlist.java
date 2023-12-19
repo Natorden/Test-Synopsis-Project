@@ -88,11 +88,18 @@ public class Playlist {
 
     public int getRelationsSize(){ return this.relations.size(); }
 
+    public static int minutesStringToSeconds(String time){
+        if(!time.contains(":")) return Integer.parseInt(time);
+        String[] separatedLine = time.split(":");
+        int minutes=Integer.parseInt(separatedLine[0]);
+        int seconds=Integer.parseInt(separatedLine[1]);
+        return minutes*60+seconds;
+    }
     public String getTotalSongsTime(){
         int time = 0;
         for(PlaylistRelation relation : this.relations){
             Song song=relation.getSong();
-            time += SongManager.minutesStringToSeconds(song.getTime());
+            time += minutesStringToSeconds(song.getTime());
         }
         return SongManager.secondsToMinutes(time);
     }

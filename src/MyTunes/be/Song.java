@@ -127,13 +127,12 @@ public class Song {
             return false;
         }
         Song other = (Song) obj;
-        return Objects.equals(title, other.title) && Objects.equals(filePath, other.filePath)
-                && Objects.equals(artist, other.artist) && Objects.equals(time, other.time);
+        return Objects.equals(title, other.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, filePath);
+        return Objects.hash(title);
     }
 }
 
